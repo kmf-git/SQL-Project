@@ -462,19 +462,19 @@ Part 2: SQL FUNCTIONS
 --=============================================================================================================
 --2.2.SQL Server Date Functions
 --=============================================================================================================
-		SELECT CURRENT_TIMESTAMP						------->Returns the current date and time
-		SELECT DATEADD(M,3, '01/15/1975')				------->Adds a time/date interval to a date and then returns the date
-		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())			------->Returns the difference between two dates
-		SELECT DATEFROMPARTS(2024,01,07)				------->Returns a date from the specified parts (year, month, and day values)
-		SELECT DATENAME(M, GETDATE())					------->Returns a specified part of a date (as string)
-		SELECT DATEPART(M, GETDATE())					------->Returns a specified part of a date (as integer)
-		SELECT DAY(GETDATE())									------->Returns the day of the month for a specified date
-		SELECT GETDATE()										------->Returns the current database system date and time
-		SELECT GETUTCDATE()										------->Returns the current database system UTC date and time
-		SELECT ISDATE('01/15/1975')							------->Checks an expression and returns 1 if it is a valid date, otherwise 0
-		SELECT MONTH(GETDATE())							------->Returns the month part for a specified date (a number from 1 to 12)
-		SELECT SYSDATETIME()							------->Returns the date and time of the SQL Server
-		SELECT YEAR(GETDATE())							------->Returns the year part for a specified date
+		SELECT CURRENT_TIMESTAMP			    ---->Returns the current date and time
+		SELECT DATEADD(M,3, '01/15/1975')       ---->Adds a time/date interval to a date and then returns the date
+		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())	---->Returns the difference between two dates
+		SELECT DATEFROMPARTS(2024,01,07)		---->Returns a date from the specified parts (year, month, and day values)
+		SELECT DATENAME(M, GETDATE())			---->Returns a specified part of a date (as string)
+		SELECT DATEPART(M, GETDATE())			---->Returns a specified part of a date (as integer)
+		SELECT DAY(GETDATE())					---->Returns the day of the month for a specified date
+		SELECT GETDATE()						---->Returns the current database system date and time
+		SELECT GETUTCDATE()						---->Returns the current database system UTC date and time
+		SELECT ISDATE('01/15/1975')				---->Checks an expression and returns 1 if it is a valid date, otherwise 0
+		SELECT MONTH(GETDATE())					---->Returns the month part for a specified date (a number from 1 to 12)
+		SELECT SYSDATETIME()					---->Returns the date and time of the SQL Server
+		SELECT YEAR(GETDATE())					---->Returns the year part for a specified date
 
 --============================================================================================================
 -- 2.3:SQL Server Conversion/Infromational Functions 
@@ -530,13 +530,13 @@ Part 2: SQL FUNCTIONS
 		--SQUARE		Returns the square of a number
 		SELECT SQUARE (7)
 	 --=========================================================================================================
-	 --2.4:JSON functions (Transact-SQL)
+	 --2.4:JSON functions in SQL 
 	 --=========================================================================================================
 
 
 
 	 --========================================================================================================= 
-	 --2.5:XML XPath Syntax
+	 --2.5:XML XPath Syntax in SQL 
 	 --=========================================================================================================
 
 
@@ -571,19 +571,26 @@ Part 2: SQL FUNCTIONS
 			[Car_VIN_Number] [varchar](50) NULL
         ) 
 		--====================================================================================================
-		--Adding constraints to table
+		--Adding constraints to table using the ADD CONSTRAINT KEY word
 		--1) Adding NOT NULL CONSTRAINTS
 		  ALTER TABLE CarOwners
 		  ALTER COLUMN OwnerSSN VARCHAR(50)  NOT NULL;
 		   GO
-		 --2) Adding Primary key CONSTRAINTS
+		 --2) Adding Primary key ON CatOwners Table
 		   ALTER TABLE CarOwners
-		   ADD CONSTRAINT PK_primaryKeyName PRIMARY KEY CLUSTERED (OwnerSSN) 
+		   ADD CONSTRAINT PK_primaryKeyName PRIMARY KEY  (OwnerSSN) 
 		   GO
 		 --3) Adding Foreign key CONSTRAINTS to CarTable
 		   ALTER TABLE CarTable
 		   ADD CONSTRAINT FK_ FOREIGN KEY (OwnerSSN) 
-			REFERENCES CarOwners (OwnerSSN)   
+			REFERENCES CarOwners (OwnerSSN) 
+
+		--4)Adding Primary key ON CatTable
+		   ALTER TABLE CarTable
+		   ADD CONSTRAINT PK_primaryKeyName_car_Vin PRIMARY KEY  (Car_VIN_Number) 
+		   GO  
+
+
 
 		
 
