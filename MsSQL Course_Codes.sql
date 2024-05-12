@@ -474,42 +474,64 @@ SELECT MONTH(GETDATE())								------->Returns the month part for a specified da
 SELECT SYSDATETIME()								------->Returns the date and time of the SQL Server
 SELECT YEAR(GETDATE())								------->Returns the year part for a specified date
 
-/*
-SQL Server Advanced Functions
-						Function			Description
-						CAST				Converts a value (of any type) into a specified datatype
-						COALESCE			Returns the first non-null value in a list
-						CONVERT				Converts a value (of any type) into a specified datatype
-						CURRENT_USER		Returns the name of the current user in the SQL Server database
-						IIF					Returns a value if a condition is TRUE, or another value if a condition is FALSE
-						ISNULL				Return a specified value if the expression is NULL, otherwise return the expression
-						ISNUMERIC			Tests whether an expression is numeric
-						NULLIF				Returns NULL if two expressions are equal
-						SESSION_USER		Returns the name of the current user in the SQL Server database
-						SESSIONPROPERTY		Returns the session settings for a specified option
-						SYSTEM_USER			Returns the login name for the current user
-						USER_NAME			Returns the database user name based on the specified id
-						WINDOWS FUNCTIONS:RANK FUNCTIONS(Row_Number, Rank, Dense-Rank, NTILE), 
-														  OFFEST FUNCTIONS(LEAD, LAG, FIRST_VALUE,LAST_VALUE,
-														  AGGREGATE FUNCTIONS(SUM, AVERAGE, MIN, MAX, COUNT)
+--SQL Server Advanced Functions
+--=======================================================================================================
+		---Function												Description
+		SELECT AVG(Car_price) car_price1, 
+				CAST(AVG(Car_price) AS int) FROM cars            ---->Converts a value (of any type) into a specified datatype
+		SELECT COALESCE(null,null,100)				             ---->COALESCE Returns the first non-null value in a list
+		SELECT CONVERT(VARCHAR(20),AVG(Car_price)) FROM cars     ---->Converts a value (of any type) into a specified datatype
+		SELECT CURRENT_USER										 ---->CURRENT_USER Returns the name of the current user in the SQL Server database
+		--IIF					                                 ---->Returns a value if a condition is TRUE, or another value if a condition is FALSE
+		SELECT car_color, COUNT(car_model) FavoriteColor,
+				IIF(COUNT(car_model) > 4, 'More frequent','Less frequen') FavoriteColor FROM cars 
+		WHERE car_make ='Chevrolet' 
+		GROUP BY car_color
+		ORDER BY COUNT(car_model) DESC
+		
+		SELECT ISNULL(NULL,27) AS 'Null'    					---->Return a specified value if the expression is NULL, otherwise return the expression
+		SELECT ISNULL(AVG(car_price),25) FROM Cars              ----> using query from database
+		SELECT ISNULL(8,27) AS Notnull
+
+		SELECT ISNUMERIC('Pyton')  AS Notnumeric                ---->Tests whether an expression is numeric. if the expression is not numeric, retruns 0 otherwise returns 1
+		SELECT ISNUMERIC(157) AS Number
+
+		SELECT NULLIF(6,6)		                                ---->Returns NULL if two expressions are equal
+		SELECT NULLIF(4,7)
+		SELECT SESSION_USER                                     ---->Returns the name of the current user in the SQL Server database
+		SELECT SYSTEM_USER                                      ---->Returns the login name for the current user
+		SELECT USER_NAME()                                      ---->Returns the database user name based on the specified id
+
 						PIVOT VS UNPIVOT
 						GROUPPING SETS ( GROUPING SET, CUBE, ROLLUPS)
 
 */
-/*SQL Server Math/Numeric Functions
+/--2.4.SQL Server Math/Numeric Functions
 					Function	Description
-					ABS			Returns the absolute value of a number
-					AVG			Returns the average value of an expression
-					CEILING		Returns the smallest integer value that is >= a number
-					COUNT		Returns the number of records returned by a select query
-					FLOOR		Returns the largest integer value that is <= to a number
-					MAX			Returns the maximum value in a set of values
-					MIN			Returns the minimum value in a set of values
-					POWER		Returns the value of a number raised to the power of another number
-					RAND		Returns a random number
-					ROUND		Rounds a number to a specified number of decimal places
-					SQRT		Returns the square root of a number
-					SQUARE		Returns the square of a number
+					--ABS			Returns the absolute value of a number
+					SELECT  100-250 , ABS(100-250)
+					--AVG			Returns the average value of an expression
+					SELECT AVG(car_price) AS AveragePrice FROM CARS
+					--CEILING		Returns the smallest integer value that is >= a number
+					SELECT CEILING(12.53) AS 'Ceiling', 12.53 AS 'Noceiling'
+					--COUNT		Returns the number of records returned by a select query
+					SELECT COUNT(*) AS NumberofCars FROM CARS 
+					--FLOOR		Returns the largest integer value that is <= to a number
+					SELECT  FLOOR(12.53) AS WithFloor, 12.53 AS Nofloor
+					--MAX			Returns the maximum value in a set of values
+					SELECT MAX(car_price)  AS MaxPrice FROM cars
+					--MIN			Returns the minimum value in a set of values
+					SELECT MIN(car_price)  AS MinPrice FROM cars
+					--POWER		Returns the value of a number raised to the power of another number
+					SELECT  POWER(2,3)
+					--RAND		Returns a random number
+					SELECT RAND() AS rand, RAND()* 10000/36 AS Fakevalue
+					--ROUND		Rounds a number to a specified number of decimal places
+					SELECT 12.78 AS noRound, ROUND(12.78,1) AS round
+					--SQRT		Returns the square root of a number
+					SELECT sqrt(49)
+					--SQUARE		Returns the square of a number
+					SELECT SQUARE (7)
 --================================================================================================
 Part III: Creating database objects for SQL Practice (CRUD -opration-CREATE, READ, UPDATE, DELETE -Operations
 /*
