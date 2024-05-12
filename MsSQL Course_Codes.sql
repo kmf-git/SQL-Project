@@ -458,7 +458,7 @@ SELECT STUFF('wifewasbornin03041996',14,8,'01151975')--->STUFF Deletes a part of
 --SUBSTRING		Extracts some characters from a string
 SELECT SUBSTRING('wifewasbornin03041996',PATINDEX('%03041996%','wifewasbornin03041996'),8) AS Position
 
---SQL Server Date Functions
+--2.2.SQL Server Date Functions
 
 SELECT CURRENT_TIMESTAMP							------->Returns the current date and time
 SELECT DATEADD(M,3, '01/15/1975')					------->Adds a time/date interval to a date and then returns the date
