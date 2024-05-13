@@ -456,25 +456,25 @@ Part 2: SQL FUNCTIONS
 
 		--SUBSTRING		Extracts some characters from a string
 		SELECT SUBSTRING('wifewasbornin03041996',PATINDEX('%03041996%','wifewasbornin03041996'),8) AS Position
---=============================================================================================================
---2.2.SQL Server Date Functions
-		SELECT CURRENT_TIMESTAMP	------->Returns the current date and time
-		SELECT DATEADD(M,3, '01/15/1975')	------->Adds a time/date interval to a date and then returns the date
-		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())	------->Returns the difference between two dates
-		SELECT DATEFROMPARTS(2024,01,07)	------->Returns a date from the specified parts (year, month, and day values)
-		SELECT DATENAME(M, GETDATE())	------->Returns a specified part of a date (as string)
-		SELECT DATEPART(M, GETDATE())	------->Returns a specified part of a date (as integer)
-		SELECT DAY(GETDATE())	------->Returns the day of the month for a specified date
-		SELECT GETDATE()	------->Returns the current database system date and time
-		SELECT GETUTCDATE()	------->Returns the current database system UTC date and time
-		SELECT ISDATE('01/15/1975')	------->Checks an expression and returns 1 if it is a valid date, otherwise 0
-		SELECT MONTH(GETDATE())	------->Returns the month part for a specified date (a number from 1 to 12)
-		SELECT SYSDATETIME()	------->Returns the date and time of the SQL Server
-		SELECT YEAR(GETDATE())	------->Returns the year part for a given date
+		--=============================================================================================================
+		--2.2.SQL Server Date Functions
+		SELECT CURRENT_TIMESTAMP					Returns the current date and time
+		SELECT DATEADD(M,3, '01/15/1975')					Adds a time/date interval to a date and then returns the date
+		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())					Returns the difference between two dates
+		SELECT DATEFROMPARTS(2024,01,07)					Returns a date from the specified parts (year, month, and day values)
+		SELECT DATENAME(M, GETDATE())					Returns a specified part of a date (as string)
+		SELECT DATEPART(M, GETDATE())					Returns a specified part of a date (as integer)
+		SELECT DAY(GETDATE())					Returns the day of the month for a specified date
+		SELECT GETDATE()					Returns the current database system date and time
+		SELECT GETUTCDATE()					Returns the current database system UTC date and time
+		SELECT ISDATE('01/15/1975')					Checks an expression and returns 1 if it is a valid date, otherwise 0
+		SELECT MONTH(GETDATE())					Returns the month part for a specified date (a number from 1 to 12)
+		SELECT SYSDATETIME()					Returns the date and time of the SQL Server
+		SELECT YEAR(GETDATE())					Returns the year part for a given date
 
---============================================================================================================
--- 2.3:SQL Server Conversion/Infromational Functions 
---=======================================================================================================
+	--============================================================================================================
+	-- 2.3:SQL Server Conversion/Infromational Functions 
+	--=======================================================================================================
 		---Function												Description
 		SELECT AVG(Car_price) car_price1, CAST(AVG(Car_price) AS int) FROM cars            ---->Converts a value (of any type) into a specified datatype
 		SELECT COALESCE(null,null,100)				             ---->COALESCE Returns the first non-null value in a list
@@ -495,7 +495,7 @@ Part 2: SQL FUNCTIONS
 		SELECT SESSION_USER                                     ---->Returns the name of the current user in the SQL Server database
 		SELECT SYSTEM_USER                                      ---->Returns the login name for the current user
 		SELECT USER_NAME()                                      ---->Returns the database user name based on the specified id
---==============================================================================================================
+	--==============================================================================================================
     --2.4.SQL Server Math/Numeric Functions
 	--==============================================================================================================
 		Function				Description
@@ -596,28 +596,23 @@ Part 2: SQL FUNCTIONS
 		   ALTER TABLE CarTable
 		   ADD CONSTRAINT PK_primaryKeyName_car_Vin PRIMARY KEY  (Car_VIN_Number) 
 		   GO  
+		  ---Creating view
+			CREATE VIEW car_view
+			AS
+			SELECT *
+			FROM   cars
+			WHERE  car_make = 'Chevrolet'
+					AND car_year = 2017 
 
-
-
-		
-
-		---Creating view
-		CREATE VIEW car_view
-		AS
-		SELECT *
-		FROM   cars
-		WHERE  car_make = 'Chevrolet'
-				AND car_year = 2017 
-
-		--Querying views
-		--SELECT * 
-		--FROM Car_view
-		GO
-		--========================Creating User defined function- Table value
-		CREATE FUNCTION Fn_carview(@carmaker VARCHAR(20),
-								@carmodel VARCHAR(20))
-		returns TABLE
-		AS --BEGIN
+			--Querying views
+			--SELECT * 
+			--FROM Car_view
+			GO
+			--========================Creating User defined function- Table value
+			CREATE FUNCTION Fn_carview(@carmaker VARCHAR(20),
+									@carmodel VARCHAR(20))
+			returns TABLE
+			AS --BEGIN
 			RETURN
 			(
 				SELECT *
@@ -625,89 +620,89 @@ Part 2: SQL FUNCTIONS
 			WHERE  car_make = @carmaker
 					AND car_model = @carmodel
 			)
-		GO
+			GO
 
-		--SELECT  * 
-		--	FROM fn_carView('Chevrolet','Express 2500')
+			--SELECT  * 
+			--	FROM fn_carView('Chevrolet','Express 2500')
 
-		---Creating Stored procedur
-		CREATE PROC Car_sp_car(@carmaker VARCHAR(20),
-							@carmodel VARCHAR(20))
-		AS
+			---Creating Stored procedur
+			CREATE PROC Car_sp_car(@carmaker VARCHAR(20),
+								@carmodel VARCHAR(20))
+			AS
 			SELECT *
 			FROM   cars
 			WHERE  car_make = @carmaker
 				AND car_model = @carmodel
 
-		--- Calling Stored procedure
-		--EXECUTE [dbo].[Car_sp_cars]'Chevrolet','Express 2500'
+			--- Calling Stored procedure
+			--EXECUTE [dbo].[Car_sp_cars]'Chevrolet','Express 2500'
 
-		---Querying using Subquery
-		SELECT  *
-		FROM cars
-		WHERE  [car_mileage] >= (SELECT AVG([car_mileage])
-								FROM cars
-								WHERE car_condition = 'new') 
+			---Querying using Subquery
+			SELECT  *
+			FROM cars
+			WHERE  [car_mileage] >= (SELECT AVG([car_mileage])
+									FROM cars
+									WHERE car_condition = 'new') 
 
-		---Pivoting SQL result set --- Using CTE
-		WITH cte1 --- Using CTE
-		AS 
-		(
+			---Pivoting SQL result set --- Using CTE
+			WITH cte1 --- Using CTE
+			AS 
+			(
 			SELECT car_condition,
 						[car_year],
 						[car_price]
 				FROM   cars
-		)
-		SELECT *
-		FROM   cte1
-			PIVOT(Sum(car_price)
-					FOR car_condition IN([certified pre-owned],new,used)) PivotTable 
+			)
+			SELECT *
+			FROM   cte1
+				PIVOT(Sum(car_price)
+						FOR car_condition IN([certified pre-owned],new,used)) PivotTable 
 
-		---Pivoting SQL result set --- Pivot operator
-		SELECT *
-		FROM  (SELECT car_condition,
+			---Pivoting SQL result set --- Pivot operator
+			SELECT *
+			FROM  (SELECT car_condition,
 					[car_year],
 					[car_price]
 			FROM   cars)A
 			PIVOT(Sum(car_price)
 				FOR car_condition IN([certified pre-owned],new,used)) Pivoting 
-		ORDER BY car_year 
+			ORDER BY car_year 
 
 
-		---Pivoting using CASE Statement
-		SELECT 
+			---Pivoting using CASE Statement
+			SELECT 
 			[car_year],
 			SUM(CASE WHEN car_condition = 'certified pre-owned' THEN [car_price] END) AS CertifiedPre_owned,
 			SUM(CASE WHEN car_condition = 'new' THEN car_price END) AS New,
 			SUM(CASE WHEN car_condition = 'used' THEN car_price END ) AS Used
 				FROM cars  
-		GROUP BY [car_year]
-		ORDER BY car_year 
-		GO
-		----
-		CREATE PROCEDURE Cars_sp_GettingCars 
+			GROUP BY [car_year]
+			ORDER BY car_year 
+			GO
+			----
+			CREATE PROCEDURE Cars_sp_GettingCars 
 			(@carmake varchar(20),
 			@CarColor varchar(20))
-		--LANGUAGE plpgsql
-		AS
+			--LANGUAGE plpgsql
+			AS
 
-		BEGIN
+			BEGIN
 				--RETURN QUERY
 					SELECT * FROM cars
 					WHERE Cars.car_make  = @carmake  AND Cars.car_color = @CarColor;
-		END;
-		---
-		EXECUTE Cars_sp_GettingCars 'Chevrolet','Blue'
+			END;
+			---
+			EXECUTE Cars_sp_GettingCars 'Chevrolet','Blue'
 
-	/*
-		PART IV. READING
-		a) using Set operators(UNION, INTERSECT EXCEPT)
-		b) using Table operators(JOIN, CROSS APPLY, PIVOT, UNPIVOT)
-		c) using SUBQUERY
-		d) Teble expressions(CTE, Recurrsive CTE, View, user defined function, Stored procedure)
-		e) Using variables temporary tables, table variable
-		f)Control flow statments( If, IIF, CASE, WHILE, BEGIN... END)
-		PART V:UPDATE
-		PART VI:DELETE 
+		/*
+			PART IV. READING
+			a) using Set operators(UNION, INTERSECT EXCEPT)
+			b) using Table operators(JOIN, CROSS APPLY, PIVOT, UNPIVOT)
+			c) using SUBQUERY
+			d) Teble expressions(CTE, Recurrsive CTE, View, user defined function, Stored procedure)
+			e) Using variables temporary tables, table variable
+			f)Control flow statments( If, IIF, CASE, WHILE, BEGIN... END)
+			PART V:UPDATE
+			PART VI:DELETE 
 
-		*/
+			*/
