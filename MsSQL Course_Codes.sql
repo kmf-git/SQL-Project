@@ -258,7 +258,6 @@ Part 2: SQL FUNCTIONS
 		2.3:SQL Server Conversion/Infromational Functions (Transact-SQL)
 		2.4:SQL Server Math/Numeric Functions
 		2.4:JSON functions (Transact-SQL)
-		2.5:SML XPath Syntax
 --==============================================================================================================
 2.1:SQL Server String Functions
 --==============================================================================================================
@@ -348,12 +347,10 @@ Part 2: SQL FUNCTIONS
 		SELECT SUBSTRING('wifewasbornin03041996',
 				PATINDEX('%03041996%','wifewasbornin03041996'),8) AS Position
 		GO
-		SELECT CONVERT(DATE,FORMAT(CONVERT(NUMERIC,
-				SUBSTRING('Iwasbornon03041796',
+		SELECT CONVERT(DATE,FORMAT(CONVERT(NUMERIC,	SUBSTRING('Iwasbornon03041796',
 				PATINDEX('%03041796%','Iwasbornon03041796'),8)),'##-##-####')) AS Position
-
-		SELECT FORMAT(CONVERT(DATE,
-			FORMAT(CONVERT(NUMERIC,SUBSTRING('Iwasbornon03041796',
+		GO
+		SELECT FORMAT(CONVERT(DATE,	FORMAT(CONVERT(NUMERIC,SUBSTRING('Iwasbornon03041796',
 				PATINDEX('%03041796%','Iwasbornon03041796'),8)),'##-##-####')),'d', 'en-US') AS Position
 
             /* Note  that the use case of CHARINDEX() and PATINDEX() in SQL query
@@ -385,12 +382,12 @@ Part 2: SQL FUNCTIONS
             */
 
 		---5) CONCAT Adds two or more strings together
-		SELECT CONCAT('American', ' ' +'Life');
+			SELECT CONCAT('American', ' ' +'Life');
 
 		---6)Datalength ---->Returns the number of bytes used to represent an expression
-		SELECT DATALENGTH('KemelewMuheFedilu') AS 'Datalength in bytes'
+			SELECT DATALENGTH('KemelewMuheFedilu') AS 'Datalength in bytes'
 		---7)LEN ---->Returns the number of chaaracters used to represent an expression
-		SELECT LEN('All mammals are Animals') AS Len 
+			SELECT LEN('All mammals are Animals') AS Len 
 
 		---8)FORMAT ---->Formats a value with the specified format, AND the result would be 12-34-56789	
 
@@ -461,36 +458,32 @@ Part 2: SQL FUNCTIONS
 		SELECT SUBSTRING('wifewasbornin03041996',PATINDEX('%03041996%','wifewasbornin03041996'),8) AS Position
 --=============================================================================================================
 --2.2.SQL Server Date Functions
---=============================================================================================================
--SQL Server Date Functions
-		SELECT CURRENT_TIMESTAMP							------->Returns the current date and time
-		SELECT DATEADD(M,3, '01/15/1975')					------->Adds a time/date interval to a date and then returns the date
-		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())		------->Returns the difference between two dates
-		SELECT DATEFROMPARTS(2024,01,07)					------->Returns a date from the specified parts (year, month, and day values)
-		SELECT DATENAME(M, GETDATE())						------->Returns a specified part of a date (as string)
-		SELECT DATEPART(M, GETDATE())						------->Returns a specified part of a date (as integer)
-		SELECT DAY(GETDATE())								------->Returns the day of the month for a specified date
-		SELECT GETDATE()									------->Returns the current database system date and time
-		SELECT GETUTCDATE()									------->Returns the current database system UTC date and time
-		SELECT ISDATE('01/15/1975')							------->Checks an expression and returns 1 if it is a valid date, otherwise 0
-		SELECT MONTH(GETDATE())								------->Returns the month part for a specified date (a number from 1 to 12)
-		SELECT SYSDATETIME()								------->Returns the date and time of the SQL Server
-		SELECT YEAR(GETDATE())								------->Returns the year part for a specified date
+		SELECT CURRENT_TIMESTAMP	------->Returns the current date and time
+		SELECT DATEADD(M,3, '01/15/1975')	------->Adds a time/date interval to a date and then returns the date
+		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())	------->Returns the difference between two dates
+		SELECT DATEFROMPARTS(2024,01,07)	------->Returns a date from the specified parts (year, month, and day values)
+		SELECT DATENAME(M, GETDATE())	------->Returns a specified part of a date (as string)
+		SELECT DATEPART(M, GETDATE())	------->Returns a specified part of a date (as integer)
+		SELECT DAY(GETDATE())	------->Returns the day of the month for a specified date
+		SELECT GETDATE()	------->Returns the current database system date and time
+		SELECT GETUTCDATE()	------->Returns the current database system UTC date and time
+		SELECT ISDATE('01/15/1975')	------->Checks an expression and returns 1 if it is a valid date, otherwise 0
+		SELECT MONTH(GETDATE())	------->Returns the month part for a specified date (a number from 1 to 12)
+		SELECT SYSDATETIME()	------->Returns the date and time of the SQL Server
+		SELECT YEAR(GETDATE())	------->Returns the year part for a given date
 
 --============================================================================================================
 -- 2.3:SQL Server Conversion/Infromational Functions 
 --=======================================================================================================
 		---Function												Description
-		SELECT AVG(Car_price) car_price1, 
-				CAST(AVG(Car_price) AS int) FROM cars            ---->Converts a value (of any type) into a specified datatype
+		SELECT AVG(Car_price) car_price1, CAST(AVG(Car_price) AS int) FROM cars            ---->Converts a value (of any type) into a specified datatype
 		SELECT COALESCE(null,null,100)				             ---->COALESCE Returns the first non-null value in a list
 		SELECT CONVERT(VARCHAR(20),AVG(Car_price)) FROM cars     ---->Converts a value (of any type) into a specified datatype
 		SELECT CURRENT_USER										 ---->CURRENT_USER Returns the name of the current user in the SQL Server database
 		--IIF					                                 ---->Returns a value if a condition is TRUE, or another value if a condition is FALSE
-		SELECT car_color, COUNT(car_model) FavoriteColor,
-				IIF(COUNT(car_model) > 4, 'More frequent','Less frequen') FavoriteColor FROM cars 
-		WHERE car_make ='Chevrolet' 
-		GROUP BY car_color
+		SELECT car_color, COUNT(car_model) FavoriteColor,IIF(COUNT(car_model) > 4, 'More frequent','Less frequen') FavoriteColor FROM cars 
+				WHERE car_make ='Chevrolet' 
+				GROUP BY car_color
 		ORDER BY COUNT(car_model) DESC
 		SELECT ISNULL(NULL,27) AS 'Null'    					---->Return a specified value if the expression is NULL, otherwise return the expression
 		SELECT ISNULL(AVG(car_price),25) FROM Cars              ----> using query from database
@@ -503,8 +496,8 @@ Part 2: SQL FUNCTIONS
 		SELECT SYSTEM_USER                                      ---->Returns the login name for the current user
 		SELECT USER_NAME()                                      ---->Returns the database user name based on the specified id
 --==============================================================================================================
---2.4.SQL Server Math/Numeric Functions
---==============================================================================================================
+    --2.4.SQL Server Math/Numeric Functions
+	--==============================================================================================================
 		Function				Description
 		--ABS					Returns the absolute value of a number
 		SELECT  100-250 , ABS(100-250)
