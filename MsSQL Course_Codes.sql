@@ -253,12 +253,12 @@
 		GO
 /*==============================================================================================================
 Part 2: SQL FUNCTIONS
-        2.1:SQL Server String Functions
-        2.2:SQL Server Date Functions
-	    2.3:SQL Server Conversion/Infromational Functions (Transact-SQL)
-        2.4:SQL Server Math/Numeric Functions
-        2.4:JSON functions (Transact-SQL)
-	    2.5:SML XPath Syntax
+		2.1:SQL Server String Functions
+		2.2:SQL Server Date Functions
+		2.3:SQL Server Conversion/Infromational Functions (Transact-SQL)
+		2.4:SQL Server Math/Numeric Functions
+		2.4:JSON functions (Transact-SQL)
+		2.5:SML XPath Syntax
 --==============================================================================================================
 2.1:SQL Server String Functions
 --==============================================================================================================
@@ -479,69 +479,81 @@ Part 2: SQL FUNCTIONS
 
 --============================================================================================================
 -- 2.3:SQL Server Conversion/Infromational Functions 
---============================================================================================================
+--=======================================================================================================
 		---Function												Description
-SELECT AVG(Car_price) car_price1, 
-		CAST(AVG(Car_price) AS int) FROM cars            ---->Converts a value (of any type) into a specified datatype
-SELECT COALESCE(null,null,100)				             ---->COALESCE Returns the first non-null value in a list
-SELECT CONVERT(VARCHAR(20),AVG(Car_price)) FROM cars     ---->Converts a value (of any type) into a specified datatype
-SELECT CURRENT_USER										 ---->CURRENT_USER Returns the name of the current user in the SQL Server database
---IIF					                                 ---->Returns a value if a condition is TRUE, or another value if a condition is FALSE
-SELECT car_color, COUNT(car_model) FavoriteColor,
-		IIF(COUNT(car_model) > 4, 'More frequent','Less frequen') FavoriteColor FROM cars 
-WHERE car_make ='Chevrolet' 
-GROUP BY car_color
-ORDER BY COUNT(car_model) DESC
-SELECT ISNULL(NULL,27) AS 'Null'    					---->Return a specified value if the expression is NULL, otherwise return the expression
-SELECT ISNULL(AVG(car_price),25) FROM Cars              ----> using query from database
-SELECT ISNULL(8,27) AS Notnull
-SELECT ISNUMERIC('Pyton')  AS Notnumeric                ---->Tests whether an expression is numeric. if the expression is not numeric, retruns 0 otherwise returns 1
-SELECT ISNUMERIC(157) AS Number
-SELECT NULLIF(6,6)		                                ---->Returns NULL if two expressions are equal
-SELECT NULLIF(4,7)
-SELECT SESSION_USER                                     ---->Returns the name of the current user in the SQL Server database
-SELECT SYSTEM_USER                                      ---->Returns the login name for the current user
-SELECT USER_NAME()                                      ---->Returns the database user name based on the specified id
+		SELECT AVG(Car_price) car_price1, 
+				CAST(AVG(Car_price) AS int) FROM cars            ---->Converts a value (of any type) into a specified datatype
+		SELECT COALESCE(null,null,100)				             ---->COALESCE Returns the first non-null value in a list
+		SELECT CONVERT(VARCHAR(20),AVG(Car_price)) FROM cars     ---->Converts a value (of any type) into a specified datatype
+		SELECT CURRENT_USER										 ---->CURRENT_USER Returns the name of the current user in the SQL Server database
+		--IIF					                                 ---->Returns a value if a condition is TRUE, or another value if a condition is FALSE
+		SELECT car_color, COUNT(car_model) FavoriteColor,
+				IIF(COUNT(car_model) > 4, 'More frequent','Less frequen') FavoriteColor FROM cars 
+		WHERE car_make ='Chevrolet' 
+		GROUP BY car_color
+		ORDER BY COUNT(car_model) DESC
+		SELECT ISNULL(NULL,27) AS 'Null'    					---->Return a specified value if the expression is NULL, otherwise return the expression
+		SELECT ISNULL(AVG(car_price),25) FROM Cars              ----> using query from database
+		SELECT ISNULL(8,27) AS Notnull
+		SELECT ISNUMERIC('Pyton')  AS Notnumeric                ---->Tests whether an expression is numeric. if the expression is not numeric, retruns 0 otherwise returns 1
+		SELECT ISNUMERIC(157) AS Number
+		SELECT NULLIF(6,6)		                                ---->Returns NULL if two expressions are equal
+		SELECT NULLIF(4,7)
+		SELECT SESSION_USER                                     ---->Returns the name of the current user in the SQL Server database
+		SELECT SYSTEM_USER                                      ---->Returns the login name for the current user
+		SELECT USER_NAME()                                      ---->Returns the database user name based on the specified id
 --==============================================================================================================
 --2.4.SQL Server Math/Numeric Functions
 --==============================================================================================================
-		Function	Description
-		--ABS			Returns the absolute value of a number
+		Function				Description
+		--ABS					Returns the absolute value of a number
 		SELECT  100-250 , ABS(100-250)
-		--AVG			Returns the average value of an expression
+		--AVG					Returns the average value of an expression
 		SELECT AVG(car_price) AS AveragePrice FROM CARS
-		--CEILING		Returns the smallest integer value that is >= a number
+		--CEILING				Returns the smallest integer value that is >= a number
 		SELECT CEILING(12.53) AS 'Ceiling', 12.53 AS 'Noceiling'
-		--COUNT		Returns the number of records returned by a select query
+		--COUNT					Returns the number of records returned by a select query
 		SELECT COUNT(*) AS NumberofCars FROM CARS 
-		--FLOOR		Returns the largest integer value that is <= to a number
+		--FLOOR					Returns the largest integer value that is <= to a number
 		SELECT  FLOOR(12.53) AS WithFloor, 12.53 AS Nofloor
-		--MAX			Returns the maximum value in a set of values
+		--MAX					Returns the maximum value in a set of values
 		SELECT MAX(car_price)  AS MaxPrice FROM cars
-		--MIN			Returns the minimum value in a set of values
+		--MIN					Returns the minimum value in a set of values
 		SELECT MIN(car_price)  AS MinPrice FROM cars
-		--POWER		Returns the value of a number raised to the power of another number
+		--POWER					Returns the value of a number raised to the power of another number
 		SELECT  POWER(2,3)
-		--RAND		Returns a random number
+		--RAND					Returns a random number
 		SELECT RAND() AS rand, RAND()* 10000/36 AS Fakevalue
-		--ROUND		Rounds a number to a specified number of decimal places
+		--ROUND					Rounds a number to a specified number of decimal places
 		SELECT 12.78 AS noRound, ROUND(12.78,1) AS round
-		--SQRT		Returns the square root of a number
+		--SQRT					Returns the square root of a number
 		SELECT sqrt(49)
-		--SQUARE		Returns the square of a number
+		--SQUARE				Returns the square of a number
 		SELECT SQUARE (7)
 	 --=========================================================================================================
 	 --2.4:JSON functions in SQL 
 	 --=========================================================================================================
-
-
+		--Function	                            Description
+		--ISJSON	                                Tests whether a string contains valid JSON.
+		--JSON_VALUE	                            Extracts a scalar value from a JSON string.
+		--JSON_QUERY								Extracts an object or an array from a JSON string.
+		--JSON_MODIFY			Updates the value of a property in a JSON string and returns the updated JSON string.
+		--JSON_PATH_EXISTS		Tests whether a specified SQL/JSON path exists in the input JSON string.
+		
+		--->Source:https://learn.microsoft.com/en-us/sql/t-sql/functions/json-functions-transact-sql?view=sql-server-ver16
 
 	 --========================================================================================================= 
 	 --2.5:XML XPath Syntax in SQL 
 	 --=========================================================================================================
+		--SQL Server provides five XML data type methods for extracting or manipulating the XML data.
 
-
-
+		--Method					Description
+		--=======================================================================================
+		--Query()					extract XML fragments from an XML data type.
+		--Value()					extract a single value from an XML fragment.
+		--Exist()					Determine whether an XML record exists or not. Return one if it exists. Else, return 0.
+		--Modify()				    Updates XML data in an XML data type.
+		--Nodes()					used to shred XML into multiple rows to propagate parts of XML documents into rowsets.
 	 --=========================================================================================================
 	 --Part III: Creating database objects 
 	 --======================================================================================================
