@@ -381,14 +381,14 @@
             */
 
 		 --5) CONCAT Adds two or more strings together
-			SELECT CONCAT('American', ' ' +'Life');
+		  SELECT CONCAT('American', ' ' +'Life');
 
 		 --6)Datalength ---->Returns the number of bytes used to represent an expression
-			SELECT DATALENGTH('KemelewMuheFedilu') AS 'Datalength in bytes'
+		  SELECT DATALENGTH('KemelewMuheFedilu') AS 'Datalength in bytes'
 		 --7)LEN ---->Returns the number of chaaracters used to represent an expression
-			SELECT LEN('All mammals are Animals') AS Len 
+		  SELECT LEN('All mammals are Animals') AS Len 
 		 --8)FORMAT ---->Formats a value with the specified format, AND the result would be 12-34-56789	
- ALTE    SELECT FORMAT(123456789, '##-##-#####');
+          SELECT FORMAT(123456789, '##-##-#####');
           --)FORMAT Function used to fomra date and time
 				--SQL Server Date FORMAT output examples
 				--Below is the list of date and datetime formats with an example of the output.  The current date used for all of these examples is "2021-03-21 11:36:14.840".
@@ -422,16 +422,17 @@
 		SELECT FORMAT (getdate(), 'd', 'fr-BE') as date	
 		SELECT FORMAT (getdate(), 'd', 'fr-CA') as date	
 		SELECT FORMAT (getdate(), 'd', 'hu-HU') as date	
-      --9)LEFT 										Extracts a number of characters from a string (starting from left)
+      --9)LEFT	Extracts a number of characters from a string (starting from left)
 		SELECT LEFT ('All mammals are Animals',11)
-		--10)LEN										Returns the length of a string
-		SELECT LEN('All mammals are Animals') 			Returns the number of characters
+		--10)LEN	Returns the length of a string
+		SELECT LEN('All mammals are Animals')	Returns the number of characters
 		SELECT DATALENGTH('All mammals are Animals')	Returns the length in bytes
 		--11)LOWER/UPPER										Converts a string to lower-case
-		SELECT UPPER('all mammals are animals')
-		SELECT LOWER('ALL MAMMALS ARE ANIMALS')
-		--12)RTRIM/LTRIM										Removes trailing/leading spaces from a string
-		SELECT LTRIM(                   'Kemelew Muhe Fedilu') ltrim,RTRIM('Kemelew Muhe Fedilu            ') rtrim 
+		SELECT UPPER('all mammals are animals')	Returns the givin character in capital letters
+		SELECT LOWER('ALL MAMMALS ARE ANIMALS')	Returns the givin character in lowerletters
+		--12)RTRIM/LTRIM	Removes trailing/leading spaces from a string
+		SELECT RTRIM('The world is spherical shape'                                                 ) 
+		SELECT LTRIM(                   'The world is spherical shape') 
 		--13)REPLICATE											Repeats a string a specified number of times
 		SELECT REPLICATE(9,5);			
 		--14)RIGHT												Extracts a number of characters from a string (starting from right)
