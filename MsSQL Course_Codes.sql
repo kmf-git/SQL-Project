@@ -387,16 +387,12 @@
 			SELECT DATALENGTH('KemelewMuheFedilu') AS 'Datalength in bytes'
 		 --7)LEN ---->Returns the number of chaaracters used to represent an expression
 			SELECT LEN('All mammals are Animals') AS Len 
-
 		 --8)FORMAT ---->Formats a value with the specified format, AND the result would be 12-34-56789	
-
-			SELECT FORMAT(123456789, '##-##-#####');
-
-		 --)FORMAT Function used to fomra date and time
+ ALTE    SELECT FORMAT(123456789, '##-##-#####');
+          --)FORMAT Function used to fomra date and time
 				--SQL Server Date FORMAT output examples
 				--Below is the list of date and datetime formats with an example of the output.  The current date used for all of these examples is "2021-03-21 11:36:14.840".
-
-		SELECT FORMAT (getdate(), 'dd/MM/yyyy ') as date	
+             SELECT FORMAT (getdate(), 'dd/MM/yyyy ') as date	
 		SELECT FORMAT (getdate(), 'dd/MM/yyyy, hh:mm:ss ') as date	
 		SELECT FORMAT (getdate(), 'dddd, MMMM, yyyy') as date	
 		SELECT FORMAT (getdate(), 'MMM dd yyyy') as date	
@@ -413,7 +409,7 @@
 		SELECT FORMAT (getdate(), 'yyyyMMdd') as date	
 		SELECT FORMAT (getdate(), 'HH:mm:dd') as time	
 		SELECT FORMAT (getdate(), 'HH:mm:dd.ffffff') as time
-			GO
+		GO
 		--The following table contains different examples for different cultures/STYLE date and time
 		SELECT FORMAT (getdate(), 'd', 'en-US') as date	
 		SELECT FORMAT (getdate(), 'd', 'fr-FR') as date	
@@ -426,21 +422,16 @@
 		SELECT FORMAT (getdate(), 'd', 'fr-BE') as date	
 		SELECT FORMAT (getdate(), 'd', 'fr-CA') as date	
 		SELECT FORMAT (getdate(), 'd', 'hu-HU') as date	
-
-		--9)LEFT 										Extracts a number of characters from a string (starting from left)
+      --9)LEFT 										Extracts a number of characters from a string (starting from left)
 		SELECT LEFT ('All mammals are Animals',11)
-
 		--10)LEN										Returns the length of a string
 		SELECT LEN('All mammals are Animals') 			Returns the number of characters
 		SELECT DATALENGTH('All mammals are Animals')	Returns the length in bytes
-
 		--11)LOWER/UPPER										Converts a string to lower-case
 		SELECT UPPER('all mammals are animals')
 		SELECT LOWER('ALL MAMMALS ARE ANIMALS')
-
 		--12)RTRIM/LTRIM										Removes trailing/leading spaces from a string
 		SELECT LTRIM(                   'Kemelew Muhe Fedilu') ltrim,RTRIM('Kemelew Muhe Fedilu            ') rtrim 
-						
 		--13)REPLICATE											Repeats a string a specified number of times
 		SELECT REPLICATE(9,5);			
 		--14)RIGHT												Extracts a number of characters from a string (starting from right)
@@ -448,12 +439,10 @@
 		SELECT LEFT('All mammals are Animals',11);				Extracts a number of characters from a string (starting from Left)
 		SELECT SPACE(10);										Returns a string of the specified number of space characters
 		SELECT STR(2026840347);									Returns a number as string
-			
 		SELECT STUFF('wifewasbornin03041996',14,8,'01151975')	TUFF Deletes a part of a string and then inserts another part into the string, starting at a specified position
 		/*Syntax
 			STUFF(string, start, length, new_string)*/
-
-		--SUBSTRING		Extracts some characters from a string
+ 	 --SUBSTRING		Extracts some characters from a string
 		SELECT SUBSTRING('wifewasbornin03041996',PATINDEX('%03041996%','wifewasbornin03041996'),8) AS Position
 		--=============================================================================================================
 		--2.2.SQL Server Date Functions
@@ -531,8 +520,7 @@
 		--JSON_QUERY								Extracts an object or an array from a JSON string.
 		--JSON_MODIFY			Updates the value of a property in a JSON string and returns the updated JSON string.
 		--JSON_PATH_EXISTS		Tests whether a specified SQL/JSON path exists in the input JSON string.
-		
-		-->Source:https://learn.microsoft.com/en-us/sql/t-sql/functions/json-functions-transact-sql?view=sql-server-ver16
+		 ---->Source:https://learn.microsoft.com/en-us/sql/t-sql/functions/json-functions-transact-sql?view=sql-server-ver16
         --========================================================================================================= 
 	    --2.5:XML XPath Syntax in SQL 
 	 	--=========================================================================================================
@@ -587,9 +575,7 @@
 		   ALTER TABLE CarTable
 		   ADD CONSTRAINT FK_FOREIGN_ownersSSN FOREIGN KEY(OwnerSSN) 
 			REFERENCES CarOwners(OwnerSSN) 
-			
-
-		--4)Adding Primary key ON CatTable
+	       --4)Adding Primary key ON CatTable
 		   ALTER TABLE CarTable
 		   ADD CONSTRAINT PK_primaryKeyName_car_Vin PRIMARY KEY  (Car_VIN_Number) 
 		   GO  
@@ -600,8 +586,7 @@
 			FROM   cars
 			WHERE  car_make = 'Chevrolet'
 					AND car_year = 2017 
-
-			--Querying views
+             --Querying views
 			--SELECT * 
 			--FROM Car_view
 			GO
