@@ -427,29 +427,29 @@
 		SELECT FORMAT (getdate(), 'd', 'fr-CA') as date	
 		SELECT FORMAT (getdate(), 'd', 'hu-HU') as date	
 
-		--9)LEFT --->Extracts a number of characters from a string (starting from left)
+		--9)LEFT 										Extracts a number of characters from a string (starting from left)
 		SELECT LEFT ('All mammals are Animals',11)
 
-		--10)LEN	Returns the length of a string
-		SELECT LEN('All mammals are Animals') --- Returns the number of characters
-		SELECT DATALENGTH('All mammals are Animals')--- Returns the length in bytes
+		--10)LEN										Returns the length of a string
+		SELECT LEN('All mammals are Animals') 			Returns the number of characters
+		SELECT DATALENGTH('All mammals are Animals')	Returns the length in bytes
 
-		--11)LOWER/UPPER---->Converts a string to lower-case
+		--11)LOWER/UPPER										Converts a string to lower-case
 		SELECT UPPER('all mammals are animals')
 		SELECT LOWER('ALL MAMMALS ARE ANIMALS')
 
-		--12)RTRIM/LTRIM			Removes trailing/leading spaces from a string
+		--12)RTRIM/LTRIM										Removes trailing/leading spaces from a string
 		SELECT LTRIM(                   'Kemelew Muhe Fedilu') ltrim,RTRIM('Kemelew Muhe Fedilu            ') rtrim 
 						
-		--13)REPLICATE ----->Repeats a string a specified number of times
+		--13)REPLICATE											Repeats a string a specified number of times
 		SELECT REPLICATE(9,5);			
-		--14)RIGHT ---->Extracts a number of characters from a string (starting from right)
-		SELECT RIGHT('All mammals are Animals',7);	------>Extracts a number of characters from a string (starting from right)
-		SELECT LEFT('All mammals are Animals',11);	------>Extracts a number of characters from a string (starting from Left)
-		SELECT SPACE(10);				            ------>Returns a string of the specified number of space characters
-		SELECT STR(2026840347);			            ------>Returns a number as string
+		--14)RIGHT												Extracts a number of characters from a string (starting from right)
+		SELECT RIGHT('All mammals are Animals',7);				Extracts a number of characters from a string (starting from right)
+		SELECT LEFT('All mammals are Animals',11);				Extracts a number of characters from a string (starting from Left)
+		SELECT SPACE(10);										Returns a string of the specified number of space characters
+		SELECT STR(2026840347);									Returns a number as string
 			
-		SELECT STUFF('wifewasbornin03041996',14,8,'01151975')--->STUFF Deletes a part of a string and then inserts another part into the string, starting at a specified position
+		SELECT STUFF('wifewasbornin03041996',14,8,'01151975')	TUFF Deletes a part of a string and then inserts another part into the string, starting at a specified position
 		/*Syntax
 			STUFF(string, start, length, new_string)*/
 
@@ -458,20 +458,6 @@
 		--=============================================================================================================
 		--2.2.SQL Server Date Functions
 		--=============================================================================================================
-		--CURRENT_TIMESTAMP										Returns the current date and time
-		--DATEADD(M,3, '01/15/1975')							Adds a time/date interval to a date and then returns the date
-		--DATEDIFF(YEAR,'01/15/1975',GETDATE()) 				Returns the difference between two dates
-		--DATEFROMPARTS(2024,01,07)								Returns a date from the specified parts (year, month, and day values)
-		--DATENAME(M, GETDATE())								Returns a specified part of a date (as string)
-		--DATEPART(M, GETDATE())								Returns a specified part of a date (as integer)
-		--DAY(GETDATE())										Returns the day of the month for a specified date
-		--GETDATE()												Returns the current database system date and time
-		--GETUTCDATE()											Returns the current database system UTC date and time
-		--ISDATE('01/15/1975')									Checks an expression and returns 1 if it is a valid date, otherwise 0
-		--MONTH(GETDATE())										Returns the month part for a specified date (a number from 1 to 12)
-		--SYSDATETIME()											Returns the date and time of the SQL Server
-		--YEAR(GETDATE())										Returns the year part for a given date
-		---==============================
 		SELECT CURRENT_TIMESTAMP						--Returns the current date and time
 		SELECT DATEADD(M,3, '01/15/1975')				--Adds a time/date interval to a date and then returns the date
 		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())	--Returns the difference between two dates
