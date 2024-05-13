@@ -22,7 +22,6 @@
 						<=	Less than or equal to	
 						<>	Not equal to
 */
-
 		SELECT [car_make]
 			,[car_model]
 			,[car_price]
@@ -62,7 +61,7 @@
 			FROM Cars
 			WHERE [car_make] <> 'Chevrolet'
 
-		--- OR---
+		-- OR--
 		SELECT [car_make]
 			,[car_model]
 			,[car_price]
@@ -125,8 +124,8 @@
 		DECLARE @x5 INT = 27;  
 		SET @x5 %= 2 ;  
 		SELECT @x5 AS Modulo_of_27_divided_by_2;  
-/*
-*--1.4:SQL Logical Operators
+	/*
+	*--1.4:SQL Logical Operators
 						ALL     --->TRUE if all of the subquery values meet the condition	
 						AND     --->TRUE if all the conditions separated by AND is TRUE	
 						ANY     --->TRUE if any of the subquery values meet the condition	
@@ -162,7 +161,7 @@
 		WHERE car_color = 'Red'  OR car_color  = 'PURPLE'
 		GO
 
-		---OR---
+		--OR--
 		SELECT  [car_make],
 				[Car_price2]
 		FROM Cars
@@ -179,7 +178,7 @@
 		FROM Cars
 		WHERE car_price2 >=ALL(SELECT car_price2 FROM CARS WHERE car_color IN ('Red' , 'PURPLE'))
 		GO
-		---OR---
+		--OR--
 		SELECT  [car_make],
 				[Car_price2]
 		FROM Cars
@@ -196,7 +195,7 @@
 		FROM Cars
 		WHERE car_price2 >=ANY(SELECT MIN(car_price2) FROM CARS WHERE car_color IN ('Red' , 'PURPLE'))
 		GO
-		----OR----
+		--OR--
 		SELECT  [car_make],
 				[Car_price2]
 		FROM Cars
@@ -229,7 +228,7 @@
 		ORDER BY car_make 
 		GO
 
-		---OR--- The above query returns the same result as the following query
+		--OR--- The above query returns the same result as the following query
 		SELECT  [car_make],
 				[Car_price2]
 		FROM Cars
@@ -237,7 +236,7 @@
 		ORDER BY car_make 
 		GO
 
-		---OR---
+		--OR---
 		SELECT  [car_make],
 				[Car_price2]
 		FROM Cars
@@ -251,16 +250,16 @@
 		WHERE EXISTS (SELECT car_make FROM CARS WHERE car_price2 < 4120.53)
 		ORDER BY car_color 
 		GO
-/*==============================================================================================================
-Part 2: SQL FUNCTIONS
+	--/*==============================================================================================================
+	--Part 2: SQL FUNCTIONS
 		2.1:SQL Server String Functions
 		2.2:SQL Server Date Functions
 		2.3:SQL Server Conversion/Infromational Functions (Transact-SQL)
 		2.4:SQL Server Math/Numeric Functions
 		2.4:JSON functions (Transact-SQL)
---==============================================================================================================
-2.1:SQL Server String Functions
---==============================================================================================================
+	--==============================================================================================================
+	/*--2.1:SQL Server String Functions
+	--==============================================================================================================
 						Function		Description
 						ASCII			Returns the ASCII value for the specific character
 						CHAR			Returns the character based on the ASCII code
@@ -293,7 +292,7 @@ Part 2: SQL FUNCTIONS
 						UNICODE			Returns the Unicode value for the first character of the input expression
 						UPPER			Converts a string to upper-case
 */
-		---1) ASCII() Returns the ASCII value for the specific character
+		--1) ASCII() Returns the ASCII value for the specific character
 		SELECT 
 		ASCII('A')AS A,
 		ASCII('B')AS B,
@@ -306,8 +305,8 @@ Part 2: SQL FUNCTIONS
 		ASCII('d')AS d, 
 		ASCII('e')AS e
 		GO
-		---===============================================================================================================
-		---2)CHAR()Returns the character based on the ASCII code
+		--===============================================================================================================
+		--2)CHAR()Returns the character based on the ASCII code
 		SELECT 
 		CHAR(65)AS A,
 		CHAR(66)AS B,
@@ -321,7 +320,7 @@ Part 2: SQL FUNCTIONS
 		CHAR(101)AS e
 		GO
 
-		---OR---Returns the character based on the ASCII code
+		--OR--Returns the character based on the ASCII code
 		SELECT 
 			CHAR(ASCII('A'))AS A,
 			CHAR(ASCII('B'))AS B,
@@ -334,13 +333,13 @@ Part 2: SQL FUNCTIONS
 			CHAR(ASCII('d'))AS d, 
 			CHAR(ASCII('e'))AS e
 			GO
-		---===================================================================================================================
-		---3)CHARINDEX		Returns the position of a substring in a string
+		--===================================================================================================================
+		--3)CHARINDEX		Returns the position of a substring in a string
 		DECLARE @emails varchar(50) = 'data_analytics@gmail.com'
 		SELECT CHARINDEX('@',@emails)
 		SELECT SUBSTRING(@emails,CHARINDEX('@',@emails),15)
-		---===================================================================================================================
-		---4)PATINDEX		Returns the position of a pattern in a string. Once we kmow the position of a pattern, we can use it in other function that requires the start position
+		--===================================================================================================================
+		--4)PATINDEX		Returns the position of a pattern in a string. Once we kmow the position of a pattern, we can use it in other function that requires the start position
 
 		SELECT PATINDEX('%03041796%','Iwasbornon03041796') position; -- this query finds the position of the pattern 
 		GO
@@ -381,21 +380,21 @@ Part 2: SQL FUNCTIONS
                 Remember that `CHARINDEX()` is useful for exact substring searches, while `PATINDEX()` is more flexible when you need to search for patterns using wildcards². 🚀
             */
 
-		---5) CONCAT Adds two or more strings together
+		 --5) CONCAT Adds two or more strings together
 			SELECT CONCAT('American', ' ' +'Life');
 
-		---6)Datalength ---->Returns the number of bytes used to represent an expression
+		 --6)Datalength ---->Returns the number of bytes used to represent an expression
 			SELECT DATALENGTH('KemelewMuheFedilu') AS 'Datalength in bytes'
-		---7)LEN ---->Returns the number of chaaracters used to represent an expression
+		 --7)LEN ---->Returns the number of chaaracters used to represent an expression
 			SELECT LEN('All mammals are Animals') AS Len 
 
-		---8)FORMAT ---->Formats a value with the specified format, AND the result would be 12-34-56789	
+		 --8)FORMAT ---->Formats a value with the specified format, AND the result would be 12-34-56789	
 
 			SELECT FORMAT(123456789, '##-##-#####');
 
-		---)FORMAT Function used to fomra date and time
-				---SQL Server Date FORMAT output examples
-				---Below is the list of date and datetime formats with an example of the output.  The current date used for all of these examples is "2021-03-21 11:36:14.840".
+		 --)FORMAT Function used to fomra date and time
+				--SQL Server Date FORMAT output examples
+				--Below is the list of date and datetime formats with an example of the output.  The current date used for all of these examples is "2021-03-21 11:36:14.840".
 
 		SELECT FORMAT (getdate(), 'dd/MM/yyyy ') as date	
 		SELECT FORMAT (getdate(), 'dd/MM/yyyy, hh:mm:ss ') as date	
@@ -428,23 +427,23 @@ Part 2: SQL FUNCTIONS
 		SELECT FORMAT (getdate(), 'd', 'fr-CA') as date	
 		SELECT FORMAT (getdate(), 'd', 'hu-HU') as date	
 
-		---9)LEFT --->Extracts a number of characters from a string (starting from left)
+		--9)LEFT --->Extracts a number of characters from a string (starting from left)
 		SELECT LEFT ('All mammals are Animals',11)
 
-		---10)LEN	Returns the length of a string
+		--10)LEN	Returns the length of a string
 		SELECT LEN('All mammals are Animals') --- Returns the number of characters
 		SELECT DATALENGTH('All mammals are Animals')--- Returns the length in bytes
 
-		---11)LOWER/UPPER---->Converts a string to lower-case
+		--11)LOWER/UPPER---->Converts a string to lower-case
 		SELECT UPPER('all mammals are animals')
 		SELECT LOWER('ALL MAMMALS ARE ANIMALS')
 
-		---12)RTRIM/LTRIM			Removes trailing/leading spaces from a string
+		--12)RTRIM/LTRIM			Removes trailing/leading spaces from a string
 		SELECT LTRIM(                   'Kemelew Muhe Fedilu') ltrim,RTRIM('Kemelew Muhe Fedilu            ') rtrim 
 						
-		---13)REPLICATE ----->Repeats a string a specified number of times
+		--13)REPLICATE ----->Repeats a string a specified number of times
 		SELECT REPLICATE(9,5);			
-		---14)RIGHT ---->Extracts a number of characters from a string (starting from right)
+		--14)RIGHT ---->Extracts a number of characters from a string (starting from right)
 		SELECT RIGHT('All mammals are Animals',7);	------>Extracts a number of characters from a string (starting from right)
 		SELECT LEFT('All mammals are Animals',11);	------>Extracts a number of characters from a string (starting from Left)
 		SELECT SPACE(10);				            ------>Returns a string of the specified number of space characters
@@ -458,24 +457,38 @@ Part 2: SQL FUNCTIONS
 		SELECT SUBSTRING('wifewasbornin03041996',PATINDEX('%03041996%','wifewasbornin03041996'),8) AS Position
 		--=============================================================================================================
 		--2.2.SQL Server Date Functions
-		SELECT CURRENT_TIMESTAMP					Returns the current date and time
-		SELECT DATEADD(M,3, '01/15/1975')					Adds a time/date interval to a date and then returns the date
-		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())					Returns the difference between two dates
-		SELECT DATEFROMPARTS(2024,01,07)					Returns a date from the specified parts (year, month, and day values)
+		--=============================================================================================================
+		--CURRENT_TIMESTAMP			Returns the current date and time
+		--DATEADD(M,3, '01/15/1975')---Adds a time/date interval to a date and then returns the date
+		--DATEDIFF(YEAR,'01/15/1975',GETDATE())---Returns the difference between two dates
+		--DATEFROMPARTS(2024,01,07)					Returns a date from the specified parts (year, month, and day values)
+		--DATENAME(M, GETDATE())					Returns a specified part of a date (as string)
+		--DATEPART(M, GETDATE())					Returns a specified part of a date (as integer)
+		--DAY(GETDATE())					Returns the day of the month for a specified date
+		--GETDATE()					Returns the current database system date and time
+		--GETUTCDATE()					Returns the current database system UTC date and time
+		--ISDATE('01/15/1975')					Checks an expression and returns 1 if it is a valid date, otherwise 0
+		--MONTH(GETDATE())					Returns the month part for a specified date (a number from 1 to 12)
+		--SYSDATETIME()					Returns the date and time of the SQL Server
+		--YEAR(GETDATE())					Returns the year part for a given date
+		---==============================
+		SELECT CURRENT_TIMESTAMP				Returns the current date and time
+		SELECT DATEADD(M,3, '01/15/1975')		Adds a time/date interval to a date and then returns the date
+		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())	Returns the difference between two dates
+		SELECT DATEFROMPARTS(2024,01,07)				Returns a date from the specified parts (year, month, and day values)
 		SELECT DATENAME(M, GETDATE())					Returns a specified part of a date (as string)
-		SELECT DATEPART(M, GETDATE())					Returns a specified part of a date (as integer)
-		SELECT DAY(GETDATE())					Returns the day of the month for a specified date
-		SELECT GETDATE()					Returns the current database system date and time
+		SELECT DATEPART(M, GETDATE())				Returns a specified part of a date (as integer)
+		SELECT DAY(GETDATE())				Returns the day of the month for a specified date
+		SELECT GETDATE()				Returns the current database system date and time
 		SELECT GETUTCDATE()					Returns the current database system UTC date and time
 		SELECT ISDATE('01/15/1975')					Checks an expression and returns 1 if it is a valid date, otherwise 0
-		SELECT MONTH(GETDATE())					Returns the month part for a specified date (a number from 1 to 12)
+		SELECT MONTH(GETDATE())					 Returns the month part for a specified date (a number from 1 to 12)
 		SELECT SYSDATETIME()					Returns the date and time of the SQL Server
 		SELECT YEAR(GETDATE())					Returns the year part for a given date
-
-	--============================================================================================================
-	-- 2.3:SQL Server Conversion/Infromational Functions 
-	--=======================================================================================================
-		---Function												Description
+		--============================================================================================================
+	    -- 2.3:SQL Server Conversion/Infromational Functions 
+	    --=======================================================================================================
+		--Function												Description
 		SELECT AVG(Car_price) car_price1, CAST(AVG(Car_price) AS int) FROM cars            ---->Converts a value (of any type) into a specified datatype
 		SELECT COALESCE(null,null,100)				             ---->COALESCE Returns the first non-null value in a list
 		SELECT CONVERT(VARCHAR(20),AVG(Car_price)) FROM cars     ---->Converts a value (of any type) into a specified datatype
@@ -495,9 +508,9 @@ Part 2: SQL FUNCTIONS
 		SELECT SESSION_USER                                     ---->Returns the name of the current user in the SQL Server database
 		SELECT SYSTEM_USER                                      ---->Returns the login name for the current user
 		SELECT USER_NAME()                                      ---->Returns the database user name based on the specified id
-	--==============================================================================================================
-    --2.4.SQL Server Math/Numeric Functions
-	--==============================================================================================================
+	  --==============================================================================================================
+      --2.4.SQL Server Math/Numeric Functions
+	  --==============================================================================================================
 		Function				Description
 		--ABS					Returns the absolute value of a number
 		SELECT  100-250 , ABS(100-250)
@@ -523,9 +536,9 @@ Part 2: SQL FUNCTIONS
 		SELECT sqrt(49)
 		--SQUARE				Returns the square of a number
 		SELECT SQUARE (7)
-	 --=========================================================================================================
-	 --2.4:JSON functions in SQL 
-	 --=========================================================================================================
+	 	--=========================================================================================================
+	 	--2.4:JSON functions in SQL 
+	 	--=========================================================================================================
 		--Function	                            Description
 		--ISJSON	                                Tests whether a string contains valid JSON.
 		--JSON_VALUE	                            Extracts a scalar value from a JSON string.
@@ -533,13 +546,11 @@ Part 2: SQL FUNCTIONS
 		--JSON_MODIFY			Updates the value of a property in a JSON string and returns the updated JSON string.
 		--JSON_PATH_EXISTS		Tests whether a specified SQL/JSON path exists in the input JSON string.
 		
-		--->Source:https://learn.microsoft.com/en-us/sql/t-sql/functions/json-functions-transact-sql?view=sql-server-ver16
-
-	 --========================================================================================================= 
-	 --2.5:XML XPath Syntax in SQL 
-	 --=========================================================================================================
+		-->Source:https://learn.microsoft.com/en-us/sql/t-sql/functions/json-functions-transact-sql?view=sql-server-ver16
+        --========================================================================================================= 
+	    --2.5:XML XPath Syntax in SQL 
+	 	--=========================================================================================================
 		--SQL Server provides five XML data type methods for extracting or manipulating the XML data.
-
 		--Method					Description
 		--=======================================================================================
 		--Query()					extract XML fragments from an XML data type.
