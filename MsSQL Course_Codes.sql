@@ -458,33 +458,33 @@
 		--=============================================================================================================
 		--2.2.SQL Server Date Functions
 		--=============================================================================================================
-		--CURRENT_TIMESTAMP			Returns the current date and time
-		--DATEADD(M,3, '01/15/1975')---Adds a time/date interval to a date and then returns the date
-		--DATEDIFF(YEAR,'01/15/1975',GETDATE())---Returns the difference between two dates
-		--DATEFROMPARTS(2024,01,07)					Returns a date from the specified parts (year, month, and day values)
-		--DATENAME(M, GETDATE())					Returns a specified part of a date (as string)
-		--DATEPART(M, GETDATE())					Returns a specified part of a date (as integer)
-		--DAY(GETDATE())					Returns the day of the month for a specified date
-		--GETDATE()					Returns the current database system date and time
-		--GETUTCDATE()					Returns the current database system UTC date and time
-		--ISDATE('01/15/1975')					Checks an expression and returns 1 if it is a valid date, otherwise 0
-		--MONTH(GETDATE())					Returns the month part for a specified date (a number from 1 to 12)
-		--SYSDATETIME()					Returns the date and time of the SQL Server
-		--YEAR(GETDATE())					Returns the year part for a given date
+		--CURRENT_TIMESTAMP										Returns the current date and time
+		--DATEADD(M,3, '01/15/1975')							Adds a time/date interval to a date and then returns the date
+		--DATEDIFF(YEAR,'01/15/1975',GETDATE()) 				Returns the difference between two dates
+		--DATEFROMPARTS(2024,01,07)								Returns a date from the specified parts (year, month, and day values)
+		--DATENAME(M, GETDATE())								Returns a specified part of a date (as string)
+		--DATEPART(M, GETDATE())								Returns a specified part of a date (as integer)
+		--DAY(GETDATE())										Returns the day of the month for a specified date
+		--GETDATE()												Returns the current database system date and time
+		--GETUTCDATE()											Returns the current database system UTC date and time
+		--ISDATE('01/15/1975')									Checks an expression and returns 1 if it is a valid date, otherwise 0
+		--MONTH(GETDATE())										Returns the month part for a specified date (a number from 1 to 12)
+		--SYSDATETIME()											Returns the date and time of the SQL Server
+		--YEAR(GETDATE())										Returns the year part for a given date
 		---==============================
-		SELECT CURRENT_TIMESTAMP				Returns the current date and time
-		SELECT DATEADD(M,3, '01/15/1975')		Adds a time/date interval to a date and then returns the date
-		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())	Returns the difference between two dates
-		SELECT DATEFROMPARTS(2024,01,07)				Returns a date from the specified parts (year, month, and day values)
-		SELECT DATENAME(M, GETDATE())					Returns a specified part of a date (as string)
-		SELECT DATEPART(M, GETDATE())				Returns a specified part of a date (as integer)
-		SELECT DAY(GETDATE())				Returns the day of the month for a specified date
-		SELECT GETDATE()				Returns the current database system date and time
-		SELECT GETUTCDATE()					Returns the current database system UTC date and time
-		SELECT ISDATE('01/15/1975')					Checks an expression and returns 1 if it is a valid date, otherwise 0
-		SELECT MONTH(GETDATE())					 Returns the month part for a specified date (a number from 1 to 12)
-		SELECT SYSDATETIME()					Returns the date and time of the SQL Server
-		SELECT YEAR(GETDATE())					Returns the year part for a given date
+		SELECT CURRENT_TIMESTAMP						--Returns the current date and time
+		SELECT DATEADD(M,3, '01/15/1975')				--Adds a time/date interval to a date and then returns the date
+		SELECT DATEDIFF(YEAR,'01/15/1975',GETDATE())	--Returns the difference between two dates
+		SELECT DATEFROMPARTS(2024,01,07)				--Returns a date from the specified parts (year, month, and day values)
+		SELECT DATENAME(M, GETDATE())					--Returns a specified part of a date (as string)
+		SELECT DATEPART(M, GETDATE())					--Returns a specified part of a date (as integer)
+		SELECT DAY(GETDATE())				            --Returns the day of the month for a specified date
+		SELECT GETDATE()				                --Returns the current database system date and time
+		SELECT GETUTCDATE()			                    --Returns the current database system UTC date and time
+		SELECT ISDATE('01/15/1975')					    --Checks an expression and returns 1 if it is a valid date, otherwise 0
+		SELECT MONTH(GETDATE())					        --Returns the month part for a specified date (a number from 1 to 12)
+		SELECT SYSDATETIME()				            --Returns the date and time of the SQL Server
+		SELECT YEAR(GETDATE())					        --Returns the year part for a given date
 		--============================================================================================================
 	    -- 2.3:SQL Server Conversion/Infromational Functions 
 	    --=======================================================================================================
