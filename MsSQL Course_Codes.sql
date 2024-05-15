@@ -533,149 +533,242 @@
 		--Exist()					Determine whether an XML record exists or not. Return one if it exists. Else, return 0.
 		--Modify()				    Updates XML data in an XML data type.
 		--Nodes()					used to shred XML into multiple rows to propagate parts of XML documents into rowsets.
-	 --=========================================================================================================
-	 --Part III: Creating database objects 
-	 --======================================================================================================
-		 IF EXISTS (SELECT name FROM master.sys.databases 
-			WHERE name = N'CarsDatabase2')  DROP  DATABASE CarsDatabase2
-			GO
-	 --====================================================================================================
-		 CREATE DATABASE CarsDatabase2
-		 GO
-	 --==================================================================================================
-		---CREATING Tables
-		 USE CarsDatabase2
-		 GO
-		 CREATE TABLE CarTable
-		 (
-			Car_VIN_Number [varchar](50) NOT NULL,
-			[OwnerSSN] [varchar](50) NULL,
-			[Car_make] [varchar](50) NULL,
-			[Model] [varchar](50) NULL
-		 ) 
-        GO
+	 	--=========================================================================================================
+	 	--Part III: Creating database objects 
+	 	--======================================================================================================
+				IF EXISTS (SELECT name FROM master.sys.databases 
+					WHERE name = N'CarsDatabase2')  DROP  DATABASE CarsDatabase2
+					GO
+				--====================================================================================================
+				CREATE DATABASE CarsDatabase2
+				GO
+				--==================================================================================================
+				--CREATING Tables base tables
+				USE CarsDatabase2
+				GO
+			/****** Object:  Table [dbo].[CarOwners]    Script Date: 5/13/2024 5:08:08 PM ******/
+				CREATE TABLE CarOwners --- creating the base tables without constraints
+				(
+				SSN_Number varchar(50) NULL,
+				FirstName varchar(50) NULL,
+				LastFame varchar(50) NULL,
+				email varchar(50) NULL,
+				Gender varchar(50) NULL,
+				Car_Vincode varchar(50) NULL
+				) 
+				GO
 
-		CREATE TABLE CarOwners
-	    (
-			[OwnerSSN] [varchar](50),
-			[first_name] [varchar](50) NULL,
-			[last_name] [varchar](50) NULL,
-			[Car_VIN_Number] [varchar](50) NULL
-        ) 
-		--====================================================================================================
-		--Adding constraints to table using the ADD CONSTRAINT KEY word
-		--1) Adding NOT NULL CONSTRAINTS
-		  ALTER TABLE CarOwners
-		  ALTER COLUMN OwnerSSN VARCHAR(50)  NOT NULL;
-		   GO
-		 --2) Adding Primary key ON CatOwners Table
-		   ALTER TABLE CarOwners
-		   ADD CONSTRAINT PK_primaryKeyName PRIMARY KEY  (OwnerSSN) 
-		   GO
-		 --3) Adding Foreign key CONSTRAINTS to CarTable
-		   ALTER TABLE CarTable
-		   ADD CONSTRAINT FK_FOREIGN_ownersSSN FOREIGN KEY(OwnerSSN) 
-			REFERENCES CarOwners(OwnerSSN) 
-	       --4)Adding Primary key ON CatTable
-		   ALTER TABLE CarTable
-		   ADD CONSTRAINT PK_primaryKeyName_car_Vin PRIMARY KEY  (Car_VIN_Number) 
-		   GO  
-		  ---Creating view
-			CREATE VIEW car_view
-			AS
-			SELECT *
-			FROM   cars
-			WHERE  car_make = 'Chevrolet'
-					AND car_year = 2017 
-             --Querying views
-			--SELECT * 
-			--FROM Car_view
-			GO
-			--========================Creating User defined function- Table value
-			CREATE FUNCTION Fn_carview(@carmaker VARCHAR(20),
-									@carmodel VARCHAR(20))
-			returns TABLE
-			AS --BEGIN
-			RETURN
-			(
+				CREATE TABLE CarsInfo- --- creating the base tables without constraints
+				(
+				Car_Vin varchar(50) NULL,
+				Car_make varchar(50) NULL,
+				Car_Model varchar(50) NULL,
+				Year varchar(50) NULL,
+				Car_color varchar(50) NULL,
+				Car_Price varchar(50) NULL,
+				Customer_SSN varchar(50) NULL
+				) 
+				GO
+				--Adding constraints to table. What are constraints in SQL?
+				/*
+				SQL Constraints
+				SQL constraints are used to specify rules for the data in a table.
+				Constraints are used to limit the type of data that can go into a table. This ensures the accuracy and reliability of the data in the table. If there is any violation between the constraint and the data action, the action is aborted.
+				Constraints can be column level or table level. Column level constraints apply to a column, and table level constraints apply to the whole table.
+				The following constraints are commonly used in SQL:
+				a) NOT NULL - Ensures that a column cannot have a NULL value
+				b) UNIQUE - Ensures that all values in a column are different
+				c) PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+				d) FOREIGN KEY - Prevents actions that would destroy links between tables
+				e) CHECK - Ensures that the values in a column satisfies a specific condition
+				f) DEFAULT - Sets a default value for a column if no value is specified
+				g) CREATE INDEX - Used to create and retrieve data from the database very quickly
+				*/
+				-- Know we understoon what constraints are , let us add constraints
+			  --===============================================================================================
+				--a) Adding constraints inline while we create tables
+				IF (NOT EXISTS (SELECT * 
+                 FROM INFORMATION_SCHEMA.TABLES 
+                 WHERE TABLE_SCHEMA = 'dbo' 
+                 AND  TABLE_NAME = 'CarOwnersWithConstraints'))
+					CREATE TABLE CarOwnersWithConstraints --- creating tables with constraints
+					(
+					SSN_Number varchar(50) NOT NULL PRIMARY KEY, -- adds the NOT NULL and PRIMARY KEY constraints
+					FirstName varchar(50) NULL,
+					LastFame varchar(50) NULL,
+					email varchar(50) NULL,
+					Gender varchar(50) NULL CHECK(Gender = 'Male' OR Gender = 'Female'), --adds the CHECK constraint
+					Car_Vincode varchar(50) NULL UNIQUE ---adds the UNIQUE constraint
+					)
+				GO
+				IF (NOT EXISTS (SELECT * 
+                 FROM INFORMATION_SCHEMA.TABLES 
+                 WHERE TABLE_SCHEMA = 'dbo' 
+                 AND  TABLE_NAME = 'CarsInfoWithConstraints'))
+					CREATE TABLE CarsInfoWithConstraints 
+					(
+					Car_Vin varchar(50) NOT NULL PRIMARY KEY, -- adds the NOT NULL and PRIMARY KEY constraints
+					Car_make varchar(50) NULL DEFAULT 'Chevrolet',-- adds the DEFAULT constraint
+					Car_Model varchar(50) NULL,
+					Year varchar(50) NULL,
+					Car_color varchar(50) NULL,
+					Car_Price varchar(50) NOT NULL CHECK (Car_Price > 0),-- adds the CHECK constraint
+					Customer_SSN varchar(50) NULL FOREIGN KEY REFERENCES CarOwnersWithConstraints(SSN_Number)-- adds the FOREIGN KEY
+					) 
+					GO -- Note that you have to create the table and primary key to be referenced as as foreign key in other table. if not, you would get error message though the syntax is correct. 
+				--====================================================================================================
+				--b) Adding constraints at the end of code line while we create tables		 	 
+			 	--====================================================================================================
+				IF (NOT EXISTS (SELECT * 
+                 FROM INFORMATION_SCHEMA.TABLES 
+                 WHERE TABLE_SCHEMA = 'dbo' 
+                 AND  TABLE_NAME = 'CarOwnersWithConstraints'))
+				CREATE TABLE CarOwnersWithConstraints 
+				(
+				SSN_Number varchar(50) NOT NULL, 
+				FirstName varchar(50) NULL,
+				LastFame varchar(50) NULL,
+				email varchar(50) NULL,
+				Gender varchar(50) NULL, 
+				Car_Vincode varchar(50) NULL, 
+				PRIMARY KEY(SSN_Number),
+				CHECK(Gender = 'Male' OR Gender = 'Female'), 
+				UNIQUE (Car_Vincode)
+				)
+				GO
+				IF (NOT EXISTS (SELECT * 
+                FROM INFORMATION_SCHEMA.TABLES 
+                WHERE TABLE_SCHEMA = 'dbo' 
+                AND  TABLE_NAME = 'CarsInfoWithConstraints'))
+   				
+				CREATE TABLE CarsInfoWithConstraints 
+				(
+				Car_Vin varchar(50) NOT NULL ,
+				Car_make varchar(50) NULL, 
+				Car_Model varchar(50) NULL,
+				Year varchar(50) NULL,
+				Car_color varchar(50) NULL,
+				Car_Price varchar(50) NOT NULL,
+				Customer_SSN varchar(50) NULL ,
+				PRIMARY KEY (Car_Vin ),
+				CHECK (Car_Price > 0),
+				FOREIGN KEY(Customer_SSN) REFERENCES CarOwnersWithConstraints(SSN_Number)
+				) 
+				GO 
+				---===========================================================================================
+
+			--1) Adding NOT NULL CONSTRAINTS
+		 	 	ALTER TABLE CarOwners1
+		  		ALTER COLUMN OwnerSSN VARCHAR(50)  NOT NULL;
+		  	 	GO
+		 	--2) Adding Primary key ON CatOwners Table
+		   		ALTER TABLE CarOwners
+		   		ADD CONSTRAINT PK_primaryKeyName PRIMARY KEY  (OwnerSSN) 
+		   		GO
+		 		--3) Adding Foreign key CONSTRAINTS to CarTable
+				ALTER TABLE CarTable
+				ADD CONSTRAINT FK_FOREIGN_ownersSSN FOREIGN KEY(OwnerSSN) 
+					REFERENCES CarOwners(OwnerSSN) 
+				--4)Adding Primary key ON CatTable
+				ALTER TABLE CarTable
+				ADD CONSTRAINT PK_primaryKeyName_car_Vin PRIMARY KEY  (Car_VIN_Number) 
+				GO  
+		  		--Creating view
+				CREATE VIEW car_view
+				AS
 				SELECT *
-			FROM   cars
-			WHERE  car_make = @carmaker
+				FROM   cars
+				WHERE  car_make = 'Chevrolet'
+						AND car_year = 2017 
+				--Querying views
+				--SELECT * 
+				--FROM Car_view
+				GO
+				--========================Creating User defined function- Table value
+				CREATE FUNCTION Fn_carview(@carmaker VARCHAR(20),
+										@carmodel VARCHAR(20))
+				returns TABLE
+				AS --BEGIN
+				RETURN
+				(
+					SELECT *
+				FROM   cars
+				WHERE  car_make = @carmaker
+						AND car_model = @carmodel
+				)
+				GO
+
+				--SELECT  * 
+				--	FROM fn_carView('Chevrolet','Express 2500')
+
+				---Creating Stored procedur
+				CREATE PROC Car_sp_car(@carmaker VARCHAR(20),
+									@carmodel VARCHAR(20))
+				AS
+				SELECT *
+				FROM   cars
+				WHERE  car_make = @carmaker
 					AND car_model = @carmodel
-			)
-			GO
 
-			--SELECT  * 
-			--	FROM fn_carView('Chevrolet','Express 2500')
+				--- Calling Stored procedure
+				--EXECUTE [dbo].[Car_sp_cars]'Chevrolet','Express 2500'
 
-			---Creating Stored procedur
-			CREATE PROC Car_sp_car(@carmaker VARCHAR(20),
-								@carmodel VARCHAR(20))
-			AS
-			SELECT *
-			FROM   cars
-			WHERE  car_make = @carmaker
-				AND car_model = @carmodel
+				---Querying using Subquery
+				SELECT  *
+				FROM cars
+				WHERE  [car_mileage] >= (SELECT AVG([car_mileage])
+										FROM cars
+										WHERE car_condition = 'new') 
 
-			--- Calling Stored procedure
-			--EXECUTE [dbo].[Car_sp_cars]'Chevrolet','Express 2500'
+				---Pivoting SQL result set --- Using CTE
+				WITH cte1 --- Using CTE
+				AS 
+				(
+				SELECT car_condition,
+							[car_year],
+							[car_price]
+					FROM   cars
+				)
+				SELECT *
+				FROM   cte1
+					PIVOT(Sum(car_price)
+							FOR car_condition IN([certified pre-owned],new,used)) PivotTable 
 
-			---Querying using Subquery
-			SELECT  *
-			FROM cars
-			WHERE  [car_mileage] >= (SELECT AVG([car_mileage])
-									FROM cars
-									WHERE car_condition = 'new') 
-
-			---Pivoting SQL result set --- Using CTE
-			WITH cte1 --- Using CTE
-			AS 
-			(
-			SELECT car_condition,
+				---Pivoting SQL result set --- Pivot operator
+				SELECT *
+				FROM  (SELECT car_condition,
 						[car_year],
 						[car_price]
-				FROM   cars
-			)
-			SELECT *
-			FROM   cte1
+				FROM   cars)A
 				PIVOT(Sum(car_price)
-						FOR car_condition IN([certified pre-owned],new,used)) PivotTable 
-
-			---Pivoting SQL result set --- Pivot operator
-			SELECT *
-			FROM  (SELECT car_condition,
-					[car_year],
-					[car_price]
-			FROM   cars)A
-			PIVOT(Sum(car_price)
-				FOR car_condition IN([certified pre-owned],new,used)) Pivoting 
-			ORDER BY car_year 
+					FOR car_condition IN([certified pre-owned],new,used)) Pivoting 
+				ORDER BY car_year 
 
 
 			---Pivoting using CASE Statement
-			SELECT 
-			[car_year],
-			SUM(CASE WHEN car_condition = 'certified pre-owned' THEN [car_price] END) AS CertifiedPre_owned,
-			SUM(CASE WHEN car_condition = 'new' THEN car_price END) AS New,
-			SUM(CASE WHEN car_condition = 'used' THEN car_price END ) AS Used
-				FROM cars  
-			GROUP BY [car_year]
-			ORDER BY car_year 
-			GO
-			----
-			CREATE PROCEDURE Cars_sp_GettingCars 
-			(@carmake varchar(20),
-			@CarColor varchar(20))
-			--LANGUAGE plpgsql
-			AS
+				SELECT 
+				[car_year],
+				SUM(CASE WHEN car_condition = 'certified pre-owned' THEN [car_price] END) AS CertifiedPre_owned,
+				SUM(CASE WHEN car_condition = 'new' THEN car_price END) AS New,
+				SUM(CASE WHEN car_condition = 'used' THEN car_price END ) AS Used
+					FROM cars  
+				GROUP BY [car_year]
+				ORDER BY car_year 
+				GO
+				----
+				CREATE PROCEDURE Cars_sp_GettingCars 
+				(@carmake varchar(20),
+				@CarColor varchar(20))
+				--LANGUAGE plpgsql
+				AS
 
-			BEGIN
-				--RETURN QUERY
-					SELECT * FROM cars
-					WHERE Cars.car_make  = @carmake  AND Cars.car_color = @CarColor;
-			END;
-			---
-			EXECUTE Cars_sp_GettingCars 'Chevrolet','Blue'
+				BEGIN
+					--RETURN QUERY
+						SELECT * FROM cars
+						WHERE Cars.car_make  = @carmake  AND Cars.car_color = @CarColor;
+				END;
+				---
+				EXECUTE Cars_sp_GettingCars 'Chevrolet','Blue'
 
 		/*
 			PART IV. READING
